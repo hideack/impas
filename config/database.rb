@@ -33,9 +33,9 @@ ActiveRecord::Base.configurations[:production] = {
   :database  => ENV['DB_NAME'],
   :pool      => 5,
   :username  => ENV['DB_USER'],
-  :password  => ENV['DB_PW'],
+  :password  => ENV['DB_PW']  ,
   :host      => ENV['DB_HOST'],
-  :socket    => '/tmp/mysql.sock'
+  #:socket    => '/tmp/mysql.sock'
 
 }
 
