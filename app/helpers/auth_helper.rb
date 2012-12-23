@@ -1,7 +1,7 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 
 Impas.helpers do
-	use Rack::Env
+	use Rack::Env if PADRINO_ENV == 'development'
 
   def oauthClient
   	#ENV['GITHUB_OAUTH_ID'] = "5757782b0547811caeae"
