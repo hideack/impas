@@ -2,6 +2,12 @@
 PADRINO_ENV  = ENV['PADRINO_ENV'] ||= ENV['RACK_ENV'] ||= 'development'  unless defined?(PADRINO_ENV)
 PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 
+if PADRINO_ENV == 'development'
+	AUTH_REDIRECT_URL = "http://local.impas-hideack.sqale.jp/auth/callback"
+else
+	AUTH_REDIRECT_URL = "http://impas-hideack.sqale.jp/auth/callback"
+end
+
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
