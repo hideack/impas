@@ -17,12 +17,14 @@ ActiveRecord::Schema.define(:version => 4) do
     t.integer  "userid"
     t.integer  "urlid"
     t.integer  "groupid"
+    t.integer  "callcount"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "groups", :force => true do |t|
     t.integer  "userid"
+    t.string   "key",        :limit => 40
     t.string   "name",       :limit => 128
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
@@ -41,8 +43,8 @@ ActiveRecord::Schema.define(:version => 4) do
 
   create_table "users", :force => true do |t|
     t.string   "name",       :limit => 64
-    t.string   "key",        :limit => 40
-    t.integer  "type",                     :default => 0
+    t.string   "opkey",      :limit => 40
+    t.integer  "usertype",                 :default => 0
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
   end

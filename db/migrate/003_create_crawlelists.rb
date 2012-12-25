@@ -4,6 +4,7 @@ class CreateCrawlelists < ActiveRecord::Migration
       t.integer :userid
       t.integer :urlid
       t.integer :groupid
+      t.integer :callcount
       t.timestamps
     end
   end
