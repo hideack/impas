@@ -16,8 +16,11 @@ Impas.controllers :auth do
       reguser = User.where(:name => user["name"])
 
       if reguser.count == 0
+        hashseed = "#{user["name"]}-impas-#{Time.now.to_i}"
+
         reguser = User.new
         reguser.name = user["name"]
+        reguser.opkey = Digest::MD5.new.update(hashseed).to_s
         reguser.usertype = 0
         reguser.save
       else
