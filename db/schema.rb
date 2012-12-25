@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 4) do
 
   create_table "users", :force => true do |t|
     t.string   "name",       :limit => 64
+    t.string   "opkey",      :limit => 40
     t.integer  "usertype",                 :default => 0
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
