@@ -4,8 +4,6 @@ Impas.helpers do
 	use Rack::Env
 
   def oauthClient
-  	#ENV['GITHUB_OAUTH_ID'] = "5757782b0547811caeae"
-  	#ENV['GITHUB_OAUTH_SECRET'] = "f0f0afa34f45d4ff5012d5bd032bba3d1fec94ba"
 
     OAuth2::Client.new(ENV['GITHUB_OAUTH_ID'], ENV['GITHUB_OAUTH_SECRET'],
                        :ssl => {:verify => false},
