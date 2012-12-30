@@ -2,11 +2,11 @@
 require 'json'
 
 Impas.helpers do
-  def generateResponse(flg, detail)
+  def generateResponse(flg, expl, detail)
     content_type :json
 
     resFlag = flg ? "ok" : "ng"
-    apiRes = {result:resFlag, description: detail}
+    apiRes = {result:resFlag, explain:expl, description: detail}
     apiRes.to_json
   end
 
