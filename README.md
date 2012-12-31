@@ -10,10 +10,10 @@ Installation
 -----------
 
 ### Server side application
-
+- foo
 
 ### Crawler
-
+- foo
 
 API
 -----
@@ -39,13 +39,31 @@ API
 ```json
 {
   "result":"ok",
+  "explain":"",
   "description":{}
 }
 ```
 
-## GET /api/group/[operation key]
-
 ## POST /api/url/[group key]
+
+### Parameters
+- url
+ - Registration URL
+
+```json
+{"url":"http://github.com/hideack"}
+```
+
+### Response
+
+```json
+{
+  "result":"ok",
+  "explain":"",
+  "description":{}
+}
+```
+
 
 ## GET /api/url/[group key]/[cruese url]
 
