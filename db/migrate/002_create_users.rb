@@ -6,6 +6,8 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :usertype, :default => 0
       t.timestamps
     end
+
+    add_index :users, :opkey
   end
 
   def self.down

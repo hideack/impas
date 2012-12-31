@@ -13,9 +13,9 @@ Impas.controllers :auth do
       user = JSON.parse(access_token.get('/user').body)
 
       # ユーザ管理
-      reguser = User.where(:name => user["name"])
+      reguser = User.find_by_name(user["name"])
 
-      if reguser.count == 0
+      if reguser.nil?
         hashseed = "#{user["name"]}-impas-#{Time.now.to_i}"
 
         reguser = User.new
@@ -23,8 +23,6 @@ Impas.controllers :auth do
         reguser.opkey = Digest::MD5.new.update(hashseed).to_s
         reguser.usertype = 0
         reguser.save
-      else
-        reguser = reguser[0]
       end
 
       session[:user] = reguser
