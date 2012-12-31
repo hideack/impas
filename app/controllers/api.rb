@@ -39,7 +39,7 @@ Impas.controllers :api do
     end
   end
 
-  # http://impas-hideack.sqale.jp/api/url/[group key]/[url]
+  # http://impas-hideack.sqale.jp/api/registration/[group key]
   post :registration, :with => [:key] do
     checkKey(params[:key]) do
       passedJson = request.body.read.force_encoding("utf-8")
