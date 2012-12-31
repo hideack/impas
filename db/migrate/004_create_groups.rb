@@ -6,6 +6,8 @@ class CreateGroups < ActiveRecord::Migration
       t.string :name, :limit => 128
       t.timestamps
     end
+
+    add_index :groups, :key
   end
 
   def self.down

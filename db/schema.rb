@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "crawlelists", ["userid", "urlid", "groupid"], :name => "index_crawlelists_on_userid_and_urlid_and_groupid"
+
   create_table "groups", :force => true do |t|
     t.integer  "userid"
     t.string   "key",        :limit => 40
@@ -30,16 +32,20 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "updated_at",                :null => false
   end
 
+  add_index "groups", ["key"], :name => "index_groups_on_key"
+
   create_table "urls", :force => true do |t|
     t.string   "url"
     t.string   "urlhash",    :limit => 40
-    t.integer  "tw"
-    t.integer  "fb"
-    t.integer  "hatena"
-    t.boolean  "lock"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.integer  "tw",                       :default => 0
+    t.integer  "fb",                       :default => 0
+    t.integer  "hatena",                   :default => 0
+    t.boolean  "lock",                     :default => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
   end
+
+  add_index "urls", ["urlhash"], :name => "index_urls_on_urlhash"
 
   create_table "users", :force => true do |t|
     t.string   "name",       :limit => 64
@@ -48,5 +54,7 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
   end
+
+  add_index "users", ["opkey"], :name => "index_users_on_opkey"
 
 end

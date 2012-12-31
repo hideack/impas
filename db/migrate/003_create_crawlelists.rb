@@ -7,6 +7,8 @@ class CreateCrawlelists < ActiveRecord::Migration
       t.integer :callcount
       t.timestamps
     end
+
+    add_index :crawlelists, [:userid, :urlid, :groupid]
   end
 
   def self.down
