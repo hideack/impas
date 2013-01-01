@@ -13,7 +13,7 @@ Impas.controllers :api do
       hashseed = "#{command["name"]}-impasgrp-#{Time.now.to_i}"
       
       grp = Group.new
-      grp.userid = user.id
+      grp.user_id = user.id
       grp.key = Digest::MD5.new.update(hashseed).to_s
       grp.name = command["name"]
       grp.save
@@ -30,7 +30,7 @@ Impas.controllers :api do
       user = User.find_by_opkey(params[:opkey])
       groups = []
 
-      Group.where(:userid => user.id).each{|grp|
+      Group.where(:user_id => user.id).each{|grp|
         groups << {name:grp.name, key:grp.key}
       }
 
@@ -75,13 +75,13 @@ Impas.controllers :api do
       end
 
       # Crawle list registration
-      crawlelist = Crawlelist.find_by_userid_and_urlid_and_groupid(grp.userid, urlProp.id, grp.id)
+      crawlelist = Crawlelist.find_by_user_id_and_url_id_and_group_id(grp.user_id, urlProp.id, grp.id)
 
       if crawlelist.nil?
         crawlelist = Crawlelist.new
-        crawlelist.userid = grp.userid
-        crawlelist.urlid  = urlProp.id
-        crawlelist.groupid = grp.id
+        crawlelist.user_id = grp.user_id
+        crawlelist.url_id  = urlProp.id
+        crawlelist.group_id = grp.id
         crawlelist.callcount = 1
       else
         crawlelist.callcount = crawlelist.callcount + 1
