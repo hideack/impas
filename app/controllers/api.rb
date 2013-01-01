@@ -48,6 +48,18 @@ Impas.controllers :api do
       comm = parseCommand(passedJson)
 
       url = comm["url"]
+
+      # URL format check.
+      begin
+        if (URI::HTTP === URI(url)) or (URI::HTTP === URI(url))
+          #
+        else
+          return generateResponse(false, "Invalid URL passed.", {})
+        end
+      rescue
+        return generateResponse(false, "Invalid URL passed.", {})
+      end
+
       urlhash = Digest::SHA1.new.update(url).to_s
 
       grp = Group.find_by_key(params[:key])
