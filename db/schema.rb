@@ -14,18 +14,18 @@
 ActiveRecord::Schema.define(:version => 4) do
 
   create_table "crawlelists", :force => true do |t|
-    t.integer  "userid"
-    t.integer  "urlid"
-    t.integer  "groupid"
+    t.integer  "user_id"
+    t.integer  "url_id"
+    t.integer  "group_id"
     t.integer  "callcount"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "crawlelists", ["userid", "urlid", "groupid"], :name => "index_crawlelists_on_userid_and_urlid_and_groupid"
+  add_index "crawlelists", ["user_id", "url_id", "group_id"], :name => "index_crawlelists_on_user_id_and_url_id_and_group_id"
 
   create_table "groups", :force => true do |t|
-    t.integer  "userid"
+    t.integer  "user_id"
     t.string   "key",        :limit => 40
     t.string   "name",       :limit => 128
     t.datetime "created_at",                :null => false
