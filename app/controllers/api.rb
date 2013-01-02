@@ -95,6 +95,32 @@ Impas.controllers :api do
   end
 
 
+  # http://impas-hideack.sqale.jp/api/ranking/[group key]/[order type]/[limit]
   get :ranking, :with => [:key, :type, :limit] do
+    checkKey(params[:key]) do
+      grp = Group.find_by_key(params[:key])
+
+      # Order
+      order = 'tw+fb+hatena+callcount'
+
+      case params[:type]
+      when 'all'
+        order = 'tw+fb+hatena+callcount'
+      when 'tw'
+        order = 'tw'
+      when 'fb'
+        order = 'fb'
+      when 'hatena'
+        order = 'hatena'
+      when 'callcount'
+        order = 'callcount'
+      end
+
+      # Search
+      ranking = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id' => grp.id).order("#{order} desc").limit(params[:limit])
+
+      # API response
+      generateResponse(true, "", {:ranking => ranking})
+    end
   end
 end
