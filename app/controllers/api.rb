@@ -117,7 +117,7 @@ Impas.controllers :api do
       end
 
       # Search
-      ranking = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id' => grp.id).order("#{order} desc").limit(params[:limit])
+      ranking = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id=? AND crawlelists.updated_at > ?', grp.id, 24.hours.ago.to_s).order("#{order} desc").limit(params[:limit])
 
       # API response
       generateResponse(true, "", {:ranking => ranking})
