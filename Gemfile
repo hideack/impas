@@ -1,9 +1,9 @@
 source :rubygems
 
 # Server requirements
-# gem 'thin' # or mongrel
+gem 'thin' # or mongrel
 # gem 'trinidad', :platform => 'jruby'
-gem "puma"
+#gem "puma"
 
 # Project requirements
 gem 'rake'
