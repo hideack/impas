@@ -1,1 +1,1 @@
-app: bundle exec thin --socket /var/run/app/app.sock start
+app: bundle exec rainbows -l /var/run/app/app.sock
