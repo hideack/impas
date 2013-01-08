@@ -1,1 +1,1 @@
-app: bundle exec puma -b unix:///var/run/app/app.sock
+app: bundle exec thin --socket /var/run/app/app.sock start
