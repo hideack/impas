@@ -1,3 +1,6 @@
+impas readme
+-----
+
 Impas
 =====
 
@@ -18,7 +21,7 @@ Installation
 -----------
 
 ### Server side application
-- nil
+config.ru を利用して任意のRubyアプリケーションサーバでrackupします。
 
 ### Crawler
 
@@ -37,7 +40,9 @@ API
 
 
 ## POST /api/group/[operation key]
-### POST boyd parameters
+集計グループの新規追加
+
+### POST body parameters
 - name
  - Cruese group name
 
@@ -55,7 +60,21 @@ API
 }
 ```
 
+## DELETE /api/url/[operation key]/[group key]
+登録した集計グループの削除
+
+### HTTP Response
+- 200
+ - 集計グループの削除成功
+- 401
+ - 操作用のオペレーションキー誤り
+- 404
+ - 削除対象のグループキーが存在しない
+
+
 ## GET /api/url/[operation key]
+集計グループ一覧の取得。
+
 ### Response
 
 ```
@@ -79,6 +98,7 @@ API
 ```
 
 ## POST /api/url/[group key]
+集計グループにURLを登録。
 
 ### POST body Parameters
 - url
@@ -99,6 +119,9 @@ API
 ```
 
 ## GET /api/ranking/[group key]/[ranking type]/[limit]
+対象集計グループに対するランキングを取得します。
+
+
 ### parameters
 - group key
 - ranking type
