@@ -25,6 +25,7 @@ Impas.controllers :user do
   end
 
   get :index do
+    @groups = Group.where(:user_id => session[:user].id)
     render "user/index", :locals=>{user: session[:user]}
   end
 

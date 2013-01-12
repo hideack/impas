@@ -23,6 +23,21 @@ Impas.controllers :api do
     end
   end
 
+  # http://impas-hideack.sqale.jp/api/group/[operation key]
+  delete :group, :with => [:opkey, :key] do
+    checkOpKey(params[:opkey]) do
+      user = User.find_by_opkey(params[:opkey])
+
+      begin
+        Group.find_by_user_id_and_key(user.id, params[:key]).delete()
+      rescue
+        return 404
+      end
+
+      # API response
+      generateResponse(true, "", {})
+    end
+  end
 
   # http://impas-hideack.sqale.jp/api/group/[operation key]
   get :group, :with => :opkey do
