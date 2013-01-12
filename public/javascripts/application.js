@@ -17,5 +17,21 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.delGroup').click(function(n){
+        opKey = $('#opKey').html();
+        key = $(this).attr("key");
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/group/' + opKey + '/' + key,
+            success: function(data){
+                location.href = "/user";
+            },
+            error: function(){
+                alert("グループの削除に失敗しました");
+            }
+        });
+    });
 });
 
