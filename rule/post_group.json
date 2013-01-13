@@ -1,6 +1,6 @@
 {
   "type" : "object",
   "properties" : {
-    "name" : {"type" : "string", "required" : true, "maxLength":128}
+    "name" : {"type" : "string", "required" : true, "maxLength":128, "minLength":1}
   }
 }
