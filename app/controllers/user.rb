@@ -20,6 +20,7 @@ Impas.controllers :user do
         return 404
       end
 
+      # 並び替え条件
       order = 'crawlelists.id asc'
 
       case params[:order]

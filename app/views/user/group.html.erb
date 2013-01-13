@@ -70,7 +70,7 @@
             <% else %>
               <% @urls.each do |url| %>
                 <tr>
-                  <td><%= truncate(url.url, :length => 60) %></td>
+                  <td><a href="<%=url.url%>" target="_blank"><%= truncate(url.url, :length => 60) %></a></td>
                   <td><%=url.callcount%></td>
                   <td><%=url.tw%></td>
                   <td><%=url.fb%></td>
