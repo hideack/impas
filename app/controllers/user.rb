@@ -43,7 +43,7 @@ Impas.controllers :user do
           order = 'callcount asc'
       end
 
-      @urls = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id=?', @grp.id).order(order).page(params[:page] || 1).per(5)
+      @urls = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id=?', @grp.id).order(order).page(params[:page] || 1).per(20)
 
       render "user/group", :locals=>{user: session[:user]}
     end
