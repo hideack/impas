@@ -11,6 +11,7 @@ gem 'sinatra-flash', :require => 'sinatra/flash'
 gem "oauth2"
 gem 'rack-env', :group => "development"
 gem 'json-schema'
+gem 'kaminari', :require => 'kaminari/sinatra'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"
