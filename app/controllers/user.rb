@@ -20,7 +20,30 @@ Impas.controllers :user do
         return 404
       end
 
-      @urls = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id=?', @grp.id).page(params[:page] || 1).per(20)
+      order = 'crawlelists.id asc'
+
+      case params[:order]
+        when 'all_desc'
+          order = 'crawlelists.id desc'
+        when 'tw_desc'
+          order = 'tw desc'
+        when 'fb_desc'
+          order = 'fb desc'
+        when 'hatena_desc'
+          order = 'hatena desc'
+        when 'callcount_desc'
+          order = 'callcount desc'
+        when 'tw_asc'
+          order = 'tw asc'
+        when 'fb_asc'
+          order = 'fb asc'
+        when 'hatena_asc'
+          order = 'hatena asc'
+        when 'callcount_asc'
+          order = 'callcount asc'
+      end
+
+      @urls = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id=?', @grp.id).order(order).page(params[:page] || 1).per(5)
 
       render "user/group", :locals=>{user: session[:user]}
     end
