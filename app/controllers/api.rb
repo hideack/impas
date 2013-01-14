@@ -9,6 +9,10 @@ Impas.controllers :api do
       command = parseCommand(passedJson)
       user = User.find_by_opkey(params[:opkey])
 
+      if !groupMakePossible? user.id
+        return generateResponse(false, "Groups exceeds the maximum size.", {})
+      end
+
       # Group added.
       hashseed = "#{command["name"]}-impasgrp-#{Time.now.to_i}"
       
