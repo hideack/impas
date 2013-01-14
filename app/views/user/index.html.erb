@@ -45,8 +45,7 @@
             </p>
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="http://github.com/hideack/impas">About</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -79,8 +78,8 @@
                   <span class="input-xlarge uneditable-input"><%= group.key %></span><br>
                   <h5>URL登録</h5>
                   <span class="input-xxlarge uneditable-input">curl -X POST -d '{"url":"http://remp.jp"}' http://<%= request.host %>/api/registration/<%= group.key %></span>
-                  <h5>ランキング取得</h5>
-                  <span class="input-xxlarge uneditable-input">http://<%= request.host %>/api/ranking/<%= truncate(group.key, :length=>12) %>/tw/10</span>
+                  <h5>ランキング取得 (ツイート数トップ10)</h5>
+                  <span class="input-xxlarge uneditable-input">http://<%= request.host %>/api/ranking/<%= group.key %>/tw/10</span>
                 </td>
                 <td>
                     <a href="/user/group/<%= group.key %>" class="btn btn-info">レポート</a>&nbsp;
