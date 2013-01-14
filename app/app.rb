@@ -59,6 +59,6 @@ class Impas < Padrino::Application
   #   end
   #
   get "/" do
-    "impas!"
+    render 'index'
   end
 end
