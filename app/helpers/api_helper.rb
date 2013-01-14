@@ -38,4 +38,8 @@ Impas.helpers do
       yield
     end
   end
+
+  def groupMakePossible?(id)
+    (Group.where(:user_id => id).count() >= MAX_GROUP) ? false : true
+  end
 end

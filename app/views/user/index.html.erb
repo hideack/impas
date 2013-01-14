@@ -79,12 +79,15 @@
                 </td>
               </tr>
             <% end %>
+
+            <% if groupMakePossible?(user.id) %>
             <tr>
               <td colspan=3>
                 <input type="text" class="span3" placeholder="追加するグループ名">
                 <button type="button" id="addGroup" class="btn btn-primary">追加</button>
               </td>
             </tr>
+            <% end %>
           </tbody>
       </table>
     </div>
