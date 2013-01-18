@@ -1,22 +1,27 @@
-impas readme
------
-
 Impas
 =====
 
 Functions
 ----------
+Impas(インパス)はあなたが登録したURLからランキングを生成するAPIサービスです。    
 Impasは登録したURLに対して付与された各種ソーシャルメディアの指数を計測し、指数に基づいたランキング情報を生成します。
-現在取得するソーシャルメディアはtwitter上でのツイート数、facebook上でのいいね数、はてなブックマークでのブックマーク数及び、
-ImpasへのURL登録回数がランキング用の指数として利用されます。
+現在取得するソーシャルメディアとしては
+
+- twitter上でのツイート数
+- facebook上でのいいね数
+- はてなブックマークでのブックマーク数
+- ImpasへのURL登録回数
+
+がランキング用の指数として利用されます。
 
 
-URLの登録及び、ランキング情報の取得はImpasが用意するAPIから操作することができます。
+URLの登録及び、ランキング情報の取得はImpasが用意するAPIから操作することができます。   
 また、APIの操作はRuby用のクライアントからも操作できます。
 
 - Impas-client
  - https://github.com/hideack/impas-client
-
+ - https://rubygems.org/gems/impas-client
+ 
 
 ![Over view](https://raw.github.com/hideack/impas/master/public/images/impas-overview.png)
 
@@ -168,6 +173,11 @@ API
     }
 }
 ```
+
+Thanks
+-------
+- Team REMP 
+ - hika69, [@hika69](http://twitter.com/hika69) 
 
 
 Contributing
