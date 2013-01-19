@@ -40,13 +40,6 @@ bundle exec padrino rake all_crawle
 
 API
 -----
-## Responses
-### HTTP Responses
-- 400
- - Invalid JSON parameters passed.
-- 401
- - Invalid API passed.
-
 
 ## POST /api/group/[operation key]
 集計グループの新規追加
@@ -68,6 +61,16 @@ API
   "description":{}
 }
 ```
+
+### Status
+
+- 200
+ - API呼び出し成功
+- 400
+ - APIで引き渡されたパラメータが不正
+- 401
+ - APIキー(グループキー, 制御キー)が不正
+
 
 ## DELETE /api/url/[operation key]/[group key]
 登録した集計グループの削除
@@ -106,6 +109,16 @@ API
 }
 ```
 
+### Status
+
+- 200
+ - API呼び出し成功
+- 400
+ - APIで引き渡されたパラメータが不正
+- 401
+ - APIキー(グループキー, 制御キー)が不正
+
+
 ## POST /api/url/[group key]
 集計グループにURLを登録。
 
@@ -127,19 +140,29 @@ API
 }
 ```
 
+### Status
+
+- 200
+ - API呼び出し成功
+- 400
+ - APIで引き渡されたパラメータが不正
+- 401
+ - APIキー(グループキー, 制御キー)が不正
+
+
 ## GET /api/ranking/[group key]/[ranking type]/[limit]
 対象集計グループに対するランキングを取得します。
 
 
 ### parameters
-- group key
-- ranking type
- - all:
- - tw:
- - fb:
- - hatena:
-- limit
- - Top *** ranking
+- group key : グループ毎に割り当てられたキーを指定
+- ranking type : ランキングソート種別を指定
+ - tw: twitterツイート数降順でソート
+ - fb: facebookいいね数降順でソート
+ - hatena: はてなブックマーク数降順でソート
+ - all: 上記全てのパラメータを加算した結果でソート 
+- limit : 最大取得数を指定
+
 
 ```javascript
 {
