@@ -3,6 +3,8 @@ require 'faraday'
 
 desc '全クロール'
 task :all_crawle do
+  logger.info "Parameter crawle start."
+
   Url.order('updated_at desc').limit(3000).each do |url|
     url.tw = tweetNum(url.url)
     url.fb = likeNum(url.url)
@@ -10,6 +12,8 @@ task :all_crawle do
     url.save
     sleep 1
   end
+
+  logger.info "Parameter crawle finish."
 end
 
 desc 'ツイート数取得'
@@ -40,6 +44,7 @@ def tweetNum(url)
       0
     end
   else
+    logger.error "Twitter API calling failed."
     0
   end
 end
@@ -60,6 +65,7 @@ def likeNum(url)
       0
     end
   else
+    logger.error "facebook API calling failed."
     0
   end
 end
@@ -79,6 +85,7 @@ def hatebuNum(url)
       0
     end
   else
+    logger.error "Hatena bookmark API calling failed."
     0
   end
 end

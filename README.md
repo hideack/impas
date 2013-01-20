@@ -1,22 +1,27 @@
-impas readme
------
-
 Impas
 =====
 
 Functions
 ----------
+Impas(インパス)はあなたが登録したURLからランキングを生成するAPIサービスです。    
 Impasは登録したURLに対して付与された各種ソーシャルメディアの指数を計測し、指数に基づいたランキング情報を生成します。
-現在取得するソーシャルメディアはtwitter上でのツイート数、facebook上でのいいね数、はてなブックマークでのブックマーク数及び、
-ImpasへのURL登録回数がランキング用の指数として利用されます。
+現在取得するソーシャルメディアとしては
+
+- twitter上でのツイート数
+- facebook上でのいいね数
+- はてなブックマークでのブックマーク数
+- ImpasへのURL登録回数
+
+がランキング用の指数として利用されます。
 
 
-URLの登録及び、ランキング情報の取得はImpasが用意するAPIから操作することができます。
+URLの登録及び、ランキング情報の取得はImpasが用意するAPIから操作することができます。   
 また、APIの操作はRuby用のクライアントからも操作できます。
 
 - Impas-client
  - https://github.com/hideack/impas-client
-
+ - https://rubygems.org/gems/impas-client
+ 
 
 ![Over view](https://raw.github.com/hideack/impas/master/public/images/impas-overview.png)
 
@@ -35,13 +40,6 @@ bundle exec padrino rake all_crawle
 
 API
 -----
-## Responses
-### HTTP Responses
-- 400
- - Invalid JSON parameters passed.
-- 401
- - Invalid API passed.
-
 
 ## POST /api/group/[operation key]
 集計グループの新規追加
@@ -63,6 +61,16 @@ API
   "description":{}
 }
 ```
+
+### Status
+
+- 200
+ - API呼び出し成功
+- 400
+ - APIで引き渡されたパラメータが不正
+- 401
+ - APIキー(グループキー, 制御キー)が不正
+
 
 ## DELETE /api/url/[operation key]/[group key]
 登録した集計グループの削除
@@ -101,6 +109,16 @@ API
 }
 ```
 
+### Status
+
+- 200
+ - API呼び出し成功
+- 400
+ - APIで引き渡されたパラメータが不正
+- 401
+ - APIキー(グループキー, 制御キー)が不正
+
+
 ## POST /api/url/[group key]
 集計グループにURLを登録。
 
@@ -122,19 +140,29 @@ API
 }
 ```
 
+### Status
+
+- 200
+ - API呼び出し成功
+- 400
+ - APIで引き渡されたパラメータが不正
+- 401
+ - APIキー(グループキー, 制御キー)が不正
+
+
 ## GET /api/ranking/[group key]/[ranking type]/[limit]
 対象集計グループに対するランキングを取得します。
 
 
 ### parameters
-- group key
-- ranking type
- - all:
- - tw:
- - fb:
- - hatena:
-- limit
- - Top *** ranking
+- group key : グループ毎に割り当てられたキーを指定
+- ranking type : ランキングソート種別を指定
+ - tw: twitterツイート数降順でソート
+ - fb: facebookいいね数降順でソート
+ - hatena: はてなブックマーク数降順でソート
+ - all: 上記全てのパラメータを加算した結果でソート 
+- limit : 最大取得数を指定
+
 
 ```javascript
 {
@@ -168,6 +196,11 @@ API
     }
 }
 ```
+
+Thanks
+-------
+- Team REMP 
+ - hika69, [@hika69](http://twitter.com/hika69) 
 
 
 Contributing
