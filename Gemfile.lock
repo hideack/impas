@@ -89,6 +89,7 @@ GEM
     rack-cache (1.2)
       rack (>= 0.4)
     rack-env (0.1.3)
+    rack-google-analytics (0.11.0)
     rack-protection (1.3.2)
       rack
     rack-test (0.6.2)
@@ -138,6 +139,7 @@ DEPENDENCIES
   oauth2
   padrino (= 0.10.7)
   rack-env
+  rack-google-analytics
   rack-test
   rake
   rspec

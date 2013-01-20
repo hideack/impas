@@ -12,6 +12,7 @@ gem "oauth2"
 gem 'rack-env', :group => "development"
 gem 'json-schema'
 gem 'kaminari', :require => 'kaminari/sinatra'
+gem 'rack-google-analytics'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"
