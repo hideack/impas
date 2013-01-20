@@ -1,5 +1,7 @@
 class Impas < Padrino::Application
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
+  use Rack::GoogleAnalytics, :tracker => (ENV['GOOGLE_ANALYTICS_CODE']) ? ENV['GOOGLE_ANALYTICS_CODE'] : 'UA-123456789-0'
+  
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
