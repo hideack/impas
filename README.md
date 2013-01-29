@@ -1,6 +1,10 @@
 Impas
 =====
 
+![Impas](https://raw.github.com/hideack/impas/master/public/images/impas-logo.png)
+
+
+
 Functions
 ----------
 Impas(インパス)はあなたが登録したURLからランキングを生成するAPIサービスです。    
