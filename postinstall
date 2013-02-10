@@ -1,0 +1,3 @@
+#!/bin/sh
+cp /home/sqale/settings/newrelic.yml /home/sqale/current/config/newrelic.yml
+
