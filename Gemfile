@@ -27,9 +27,8 @@ gem 'rack-test', :require => "rack/test", :group => "test"
 # Padrino Stable Gem
 gem 'padrino', '0.10.7'
 
-# 
-#gem 'padrino-rpm', :git => "https://github.com/Asquera/padrino-rpm.git"
-#gem 'newrelic_rpm'
+gem 'padrino-rpm', :git => "https://github.com/Asquera/padrino-rpm.git"
+gem 'newrelic_rpm'
 
 # Or Padrino Edge
 # gem 'padrino', :git => 'git://github.com/padrino/padrino-framework.git'

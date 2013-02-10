@@ -50,4 +50,6 @@ end
 Padrino.after_load do
 end
 
+::NewRelic::Agent.after_fork(:force_reconnect => true)
+
 Padrino.load!
