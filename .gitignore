@@ -4,6 +4,7 @@
 log/**/*
 tmp/**/*
 bin/*
+log/*
 vendor/gems/*
 !vendor/gems/cache/
 .sass-cache/*
