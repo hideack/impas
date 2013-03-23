@@ -108,6 +108,11 @@ Impas.controllers :api do
 
       crawlelist.save
 
+      # Recommendation
+      if !comm['user'].nil?
+        recommendProcess(comm['user'], urlhash)
+      end
+
       # API response
       generateResponse(true, "", {})
     end

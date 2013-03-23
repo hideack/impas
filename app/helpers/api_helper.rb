@@ -1,5 +1,7 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 require 'json'
+require 'URI'
+require './recommender/recommender.rb'
 
 Impas.helpers do
   def generateResponse(flg, expl, detail)
@@ -42,4 +44,18 @@ Impas.helpers do
   def groupMakePossible?(id)
     (Group.where(:user_id => id).count() >= MAX_GROUP) ? false : true
   end
+
+  def recentRegistrationUrls(grpid, limit)
+    Crawlelist.where(:group_id => grpid).limit(limit).group("date(created_at)").count()
+  end
+
+  def recommendProcess(user, urlHash)
+    uri = URI.parse(ENV['REDIS_URI'])
+    Recommendify.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+
+    recommender = Recommender.new
+    recommender.visits.add_set(user, [urlHash])
+    recommender.process!
+  end
+
 end

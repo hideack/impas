@@ -1,6 +1,7 @@
 {
   "type" : "object",
   "properties" : {
-    "url" : {"type" : "string", "required" : true, "maxLength":255}
+    "url" : {"type" : "string", "required" : true, "maxLength":255},
+    "user" : {"type" : "string", "required" : false, "maxLength":40}
   }
 }

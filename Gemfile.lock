@@ -107,6 +107,9 @@ GEM
       unicorn (~> 4.1)
     raindrops (0.10.0)
     rake (10.0.3)
+    recommendify (0.3.8)
+      redis (>= 2.2.2)
+    redis (3.0.3)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -157,5 +160,7 @@ DEPENDENCIES
   rack-test
   rainbows
   rake
+  recommendify
+  redis
   rspec
   sinatra-flash
