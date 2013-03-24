@@ -55,7 +55,17 @@ Impas.helpers do
 
     recommender = Recommender.new
     recommender.visits.add_set(user, [urlHash])
-    recommender.process!
+
   end
+
+  def recommend(urlHash)
+    uri = URI.parse(ENV['REDIS_URI'])
+    Recommendify.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+
+    recommender = Recommender.new
+    recommender.process!
+    recommender.for(urlHash)
+  end
+
 
 end

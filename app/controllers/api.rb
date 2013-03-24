@@ -118,6 +118,21 @@ Impas.controllers :api do
     end
   end
 
+  # http://impas-hideack.sqale.jp/api/ranking/[group key]/[order type]/[limit]
+  post :recommend, :with => :key do
+    checkKey(params[:key]) do
+      passedJson = request.body.read.force_encoding("utf-8")
+      return 400 if !validateJsonCommand('post_recommend', passedJson)
+
+      comm = parseCommand(passedJson)
+
+      urlhash = Digest::SHA1.new.update(comm['url']).to_s
+      recommendUrls = recommend(urlhash)
+
+      # API response
+      generateResponse(true, "", {recommend:recommendUrls})
+    end
+  end
 
   # http://impas-hideack.sqale.jp/api/ranking/[group key]/[order type]/[limit]
   get :ranking, :with => [:key, :type, :limit] do
