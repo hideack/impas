@@ -16,6 +16,7 @@ gem 'kaminari', :require => 'kaminari/sinatra'
 gem 'rack-google-analytics'
 gem 'recommendify'
 gem "redis"
+gem 'hiredis'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"

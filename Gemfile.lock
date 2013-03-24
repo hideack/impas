@@ -36,6 +36,7 @@ GEM
     faraday (0.8.4)
       multipart-post (~> 1.1)
     hike (1.2.1)
+    hiredis (0.4.5)
     http_router (0.10.2)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
@@ -148,6 +149,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   erubis (~> 2.7.0)
+  hiredis
   json-schema
   kaminari
   mysql2
