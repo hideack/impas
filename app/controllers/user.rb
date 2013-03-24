@@ -46,6 +46,9 @@ Impas.controllers :user do
 
       @urls = Url.select([:url, :tw, :fb, :hatena, :callcount]).joins(:crawlelists).where('crawlelists.group_id=?', @grp.id).order(order).page(params[:page] || 1).per(20)
 
+      # 直近新規登録数
+      @recentReg = Crawlelist.where(:group_id => @grp.id).group("date(created_at)").count()
+
       render "user/group", :locals=>{user: session[:user]}
     end
   end

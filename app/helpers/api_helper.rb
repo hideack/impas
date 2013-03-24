@@ -1,7 +1,7 @@
 # Helper methods defined here can be accessed in any controller or view in the application
 require 'json'
 require 'URI'
-require './recommender/recommender.rb'
+###require './recommender/recommender.rb'
 
 Impas.helpers do
   def generateResponse(flg, expl, detail)
@@ -50,21 +50,24 @@ Impas.helpers do
   end
 
   def recommendProcess(user, urlHash)
+=begin
     uri = URI.parse(ENV['REDIS_URI'])
     Recommendify.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 
     recommender = Recommender.new
     recommender.visits.add_set(user, [urlHash])
-
+=end
   end
 
   def recommend(urlHash)
+=begin
     uri = URI.parse(ENV['REDIS_URI'])
     Recommendify.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
 
     recommender = Recommender.new
     recommender.process!
     recommender.for(urlHash)
+=end
   end
 
 
