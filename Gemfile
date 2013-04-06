@@ -14,9 +14,6 @@ gem 'rack-env', :group => "development"
 gem 'json-schema'
 gem 'kaminari', :require => 'kaminari/sinatra'
 gem 'rack-google-analytics'
-###gem "redis"
-###gem 'hiredis'
-###gem 'recommendify'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"
