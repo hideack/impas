@@ -76,7 +76,7 @@ def similiarity(group_id, visitor_id, comparsion_visitor_id)
     mat = mat + (page.normalize_count * comparsion_page.normalize_count)
   end
 
-  sim = (mat / visitor_vector_abs * comparsion_vector_abs)
+  sim = mat / (Math.sqrt(visitor_vector_abs) * Math.sqrt(comparsion_vector_abs))
   Impas.cache.set("similarity:#{visitor_id}:#{comparsion_visitor_id}", sim, :expires_in => 3600)
 
   # Similarity
