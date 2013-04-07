@@ -69,8 +69,11 @@ Impas.helpers do
     log.save!
 
     # 正規化
-    normalize_sql = "UPDATE visitlogs SET normalize_count=visit_count/#{(sum_count + 1).to_f} WHERE group_id=#{grpid} and visitor=#{visitor}";
-    abs_sql       = "UPDATE visitlogs SET normalize_abs=normalize_count * normalize_count WHERE group_id=#{grpid} and visitor=#{visitor}";
+    sanitize_grpid = ActiveRecord::Base.sanitize(grpid)
+    sanitize_visitor = ActiveRecord::Base.sanitize(visitor)
+    normalize_sql = "UPDATE visitlogs SET normalize_count=visit_count/#{(sum_count + 1).to_f} WHERE group_id=#{sanitize_grpid} and visitor=#{sanitize_visitor}";
+    abs_sql       = "UPDATE visitlogs SET normalize_abs=normalize_count * normalize_count WHERE group_id=#{sanitize_grpid} and visitor=#{sanitize_visitor}";
+
     ActiveRecord::Base.connection.execute(normalize_sql)
     ActiveRecord::Base.connection.execute(abs_sql)
     
