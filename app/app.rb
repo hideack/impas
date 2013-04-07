@@ -23,6 +23,7 @@ class Impas < Padrino::Application
   #   set :cache, Padrino::Cache::Store::Memory.new(50)
   #   set :cache, Padrino::Cache::Store::File.new(Padrino.root('tmp', app_name.to_s, 'cache')) # default choice
   #
+  set :cache, Padrino::Cache::Store::Memory.new(10240)
 
   ##
   # Application configuration options
