@@ -49,26 +49,31 @@ Impas.helpers do
     Crawlelist.where(:group_id => grpid).limit(limit).group("date(created_at)").count()
   end
 
-  def recommendProcess(user, urlHash)
-=begin
-    uri = URI.parse(ENV['REDIS_URI'])
-    Recommendify.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+  def visit_logging(grpid, visitor, urlid)
+    # 累計訪問回数記録
+    sum_count = Visitlog.sum(:visit_count, :conditions => {:group_id => grpid, :visitor => visitor})
+    logger.info "Visit count sum=#{sum_count}"
 
-    recommender = Recommender.new
-    recommender.visits.add_set(user, [urlHash])
-=end
+    # 訪問者記録
+    log = Visitlog.find(:first, :conditions => {:group_id => grpid, :visitor => visitor, :url_id => urlid})
+
+    if log.nil?
+      log = Visitlog.new
+      log.group_id = grpid
+      log.visitor = visitor
+      log.url_id = urlid
+    end
+
+    current_count = log.visit_count
+    log.visit_count = current_count + 1
+    log.save!
+
+    # 正規化
+    normalize_sql = "UPDATE visitlogs SET normalize_count=visit_count/#{(sum_count + 1).to_f} WHERE group_id=#{grpid} and visitor=#{visitor}";
+    abs_sql       = "UPDATE visitlogs SET normalize_abs=normalize_count * normalize_count WHERE group_id=#{grpid} and visitor=#{visitor}";
+    ActiveRecord::Base.connection.execute(normalize_sql)
+    ActiveRecord::Base.connection.execute(abs_sql)
+    
   end
-
-  def recommend(urlHash)
-=begin
-    uri = URI.parse(ENV['REDIS_URI'])
-    Recommendify.redis = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
-
-    recommender = Recommender.new
-    recommender.process!
-    recommender.for(urlHash)
-=end
-  end
-
 
 end

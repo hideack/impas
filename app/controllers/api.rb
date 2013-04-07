@@ -110,7 +110,7 @@ Impas.controllers :api do
 
       # Recommendation
       if !comm['user'].nil?
-        recommendProcess(comm['user'], urlhash)
+        visit_logging(grp.id, comm['user'], urlProp.id)
       end
 
       # API response
@@ -118,19 +118,19 @@ Impas.controllers :api do
     end
   end
 
-  # http://impas-hideack.sqale.jp/api/ranking/[group key]/[order type]/[limit]
-  post :recommend, :with => :key do
+  # http://impas-hideack.sqale.jp/api/recommend/[group key]/[visitor]/[limit]
+  get :recommend, :with => [:key, :visitor, :limit] do
     checkKey(params[:key]) do
-      passedJson = request.body.read.force_encoding("utf-8")
-      return 400 if !validateJsonCommand('post_recommend', passedJson)
+      grp = Group.find_by_key(params[:key])
+      recs = Recommend.select(:url_id).where(:group_id => grp.id, :visitor => params[:visitor]).order("recommended_ratio desc").limit(params[:limit])
 
-      comm = parseCommand(passedJson)
-
-      urlhash = Digest::SHA1.new.update(comm['url']).to_s
-      recommendUrls = recommend(urlhash)
+      recommends = []
+      recs.each do |one_recommend|
+        recommends << Url.select([:url, :tw, :fb, :hatena]).find(:first, :conditions => {:id => one_recommend.url_id})
+      end
 
       # API response
-      generateResponse(true, "", {recommend:recommendUrls})
+      generateResponse(true, "", {recommends:recommends})
     end
   end
 
