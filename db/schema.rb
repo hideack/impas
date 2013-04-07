@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "crawlelists", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(:version => 4) do
   end
 
   add_index "groups", ["key"], :name => "index_groups_on_key"
+
+  create_table "recommends", :force => true do |t|
+    t.integer  "group_id"
+    t.string   "visitor",           :limit => 40
+    t.integer  "url_id"
+    t.float    "recommended_ratio"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "recommends", ["group_id", "visitor", "recommended_ratio"], :name => "index_recommends_on_group_id_and_visitor_and_recommended_ratio"
 
   create_table "urls", :force => true do |t|
     t.string   "url"
@@ -56,5 +67,18 @@ ActiveRecord::Schema.define(:version => 4) do
   end
 
   add_index "users", ["opkey"], :name => "index_users_on_opkey"
+
+  create_table "visitlogs", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "url_id"
+    t.string   "visitor",         :limit => 40
+    t.integer  "visit_count",                   :default => 0
+    t.float    "normalize_count",               :default => 0.0
+    t.float    "normalize_abs",                 :default => 0.0
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
+  add_index "visitlogs", ["group_id", "url_id", "visitor"], :name => "index_visitlogs_on_group_id_and_url_id_and_visitor"
 
 end
