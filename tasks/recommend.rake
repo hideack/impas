@@ -3,12 +3,16 @@ require 'faraday'
 
 desc 'レコメンド実行'
 task :recommend do
+  puts "Recommendation start. - #{Time.now.to_s}"
+
   Group.select(:id).each do |group|
     Visitlog.select(:visitor).uniq.where(:group_id => group.id).each do |visitor|
+      puts "Group:#{group.id} / visitor:#{visitor.visitor}"
       recommend_process(group.id, visitor.visitor)
     end
   end
 
+  puts "Recommendation finished. - #{Time.now.to_s}"
 end
 
 def recommend_process(gid, visitor_id)
