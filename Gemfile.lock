@@ -91,6 +91,7 @@ GEM
     padrino-mailer (0.10.7)
       mail (~> 2.3.0)
       padrino-core (= 0.10.7)
+    parallel (0.6.4)
     polyglot (0.3.3)
     rack (1.4.4)
     rack-cache (1.2)
@@ -152,6 +153,7 @@ DEPENDENCIES
   oauth2
   padrino (= 0.10.7)
   padrino-rpm!
+  parallel
   rack-env
   rack-google-analytics
   rack-test

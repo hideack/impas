@@ -3,10 +3,15 @@ require 'faraday'
 
 desc 'レコメンド実行'
 task :recommend do
+  processor_count = Parallel.processor_count
+
   puts "Recommendation start. - #{Time.now.to_s}"
+  puts "CPU count : #{processor_count}"
 
   Group.select(:id).each do |group|
-    Visitlog.select(:visitor).uniq.where(:group_id => group.id).each do |visitor|
+    visitors = Visitlog.select(:visitor).uniq.where(:group_id => group.id)
+
+    Parallel.each(visitors, in_threads: processor_count) do |visitor|
       puts "Group:#{group.id} / visitor:#{visitor.visitor}"
       recommend_process(group.id, visitor.visitor)
     end
@@ -48,6 +53,7 @@ def recommend_process(gid, visitor_id)
 
   recommend_pages.each do |url_id, ratio|
     next if Visitlog.where(:group_id => gid, :visitor => visitor_id, :url_id => url_id).count > 0 # 過去閲覧ページは除外
+    next if ratio < RECOMMEND_RATIO_MINIMUM
 
     rec = Recommend.find(:first, :conditions => {:group_id => gid, :visitor => visitor_id, :url_id => url_id})
     rec = Recommend.new if rec.nil?

@@ -10,6 +10,8 @@ end
 
 MAX_GROUP = 5
 
+RECOMMEND_RATIO_MINIMUM = 0.01
+
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
