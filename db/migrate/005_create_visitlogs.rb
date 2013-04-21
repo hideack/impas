@@ -11,6 +11,7 @@ class CreateVisitlogs < ActiveRecord::Migration
     end
 
     add_index :visitlogs, [:group_id, :url_id, :visitor]
+    add_index :visitlogs, [:group_id]
   end
 
   def self.down
