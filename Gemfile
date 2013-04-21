@@ -15,6 +15,7 @@ gem 'json-schema'
 gem 'kaminari', :require => 'kaminari/sinatra'
 gem 'rack-google-analytics'
 gem 'parallel'
+gem 'narray'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"
