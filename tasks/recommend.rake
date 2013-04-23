@@ -27,9 +27,9 @@ end
 def recommend_process(gid, visitor_id)
   recommend_pages = {}
 
-  Visitlog.select([:url_id, :normalize_count]).uniq.where(:group_id => gid, :visitor => visitor_id).find_each do |page|
+  Visitlog.select([:url_id, :normalize_count]).where(:group_id => gid, :visitor => visitor_id).find_each do |page|
     # レコメンド対象ユーザが閲覧したページをイテレート
-    Visitlog.select(:visitor).uniq.where(:group_id => gid, :url_id => page.url_id).find_each do |comparsion_visitor|
+    Visitlog.select(:visitor).where(:group_id => gid, :url_id => page.url_id).find_each do |comparsion_visitor|
       next if visitor_id == comparsion_visitor.visitor
       
       # 該当ページを閲覧した他ユーザとレコメンド対象ユーザの類似度算出
@@ -77,11 +77,11 @@ end
 def user_similarity_process(gid, visitor_id)
   logger.info "Group:#{gid} / visitor:#{visitor_id}"
 
-  visitPages = Visitlog.select(:url_id).uniq.where(:group_id => gid, :visitor => visitor_id)
+  visitPages = Visitlog.select(:url_id).where(:group_id => gid, :visitor => visitor_id)
 
   visitPages.each do |page|
     # レコメンド対象ユーザが閲覧したページをイテレート
-    Visitlog.select(:visitor).uniq.where(:group_id => gid, :url_id => page.url_id).find_each do |comparsion_visitor|
+    Visitlog.select(:visitor).where(:group_id => gid, :url_id => page.url_id).find_each do |comparsion_visitor|
       next if visitor_id == comparsion_visitor.visitor
       ratio = similiarity(gid, visitor_id, comparsion_visitor.visitor)
 
@@ -106,17 +106,15 @@ def similiarity(group_id, visitor_id, comparsion_visitor_id)
 
   return 0.0 if visitor_vector_abs.nil? || comparsion_vector_abs.nil?
 
-  visitor_pages = Visitlog.select([:url_id, :normalize_count]).uniq.where(:group_id => group_id, :visitor => visitor_id)
-
   mat = 0.0
-  visitor_pages.each do |page|
+  Visitlog.select([:url_id, :normalize_count]).where(:group_id => group_id, :visitor => visitor_id).find_each do |page|
     comparsion_page = Visitlog.find(:first, :conditions => {:group_id => group_id, :visitor => comparsion_visitor_id, :url_id => page.url_id})
     next if comparsion_page.nil?
 
     mat = mat + (page.normalize_count * comparsion_page.normalize_count)
   end
 
-  sim = mat / (Math.sqrt(visitor_vector_abs) * Math.sqrt(comparsion_vector_abs))
+  sim = mat / (Math.sqrt(visitor_vector_abs *comparsion_vector_abs))
 
   # Similarity
   sim
