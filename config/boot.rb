@@ -10,6 +10,7 @@ end
 
 MAX_GROUP = 5
 
+USER_SIMILARITY_RATIO_MINIMUM = 0.1
 RECOMMEND_RATIO_MINIMUM = 0.01
 
 # Load our dependencies
