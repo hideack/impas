@@ -18,6 +18,8 @@ task :recommend do
       when 'user_similarity'
         user_similarity_process(group.id, visitor.visitor)
       end
+
+      ActiveRecord::Base.connection.close
     end
   end
 
@@ -27,9 +29,9 @@ end
 def recommend_process(gid, visitor_id)
   recommend_pages = {}
 
-  Visitlog.select([:url_id, :normalize_count]).where(:group_id => gid, :visitor => visitor_id).find_each do |page|
+  Visitlog.select([:url_id, :normalize_count]).where(:group_id => gid, :visitor => visitor_id).each do |page|
     # レコメンド対象ユーザが閲覧したページをイテレート
-    Visitlog.select(:visitor).where(:group_id => gid, :url_id => page.url_id).find_each do |comparsion_visitor|
+    Visitlog.select(:visitor).where(:group_id => gid, :url_id => page.url_id).each do |comparsion_visitor|
       next if visitor_id == comparsion_visitor.visitor
       
       # 該当ページを閲覧した他ユーザとレコメンド対象ユーザの類似度算出
@@ -81,7 +83,7 @@ def user_similarity_process(gid, visitor_id)
 
   visitPages.each do |page|
     # レコメンド対象ユーザが閲覧したページをイテレート
-    Visitlog.select(:visitor).where(:group_id => gid, :url_id => page.url_id).find_each do |comparsion_visitor|
+    Visitlog.select(:visitor).where(:group_id => gid, :url_id => page.url_id).each do |comparsion_visitor|
       next if visitor_id == comparsion_visitor.visitor
       ratio = similiarity(gid, visitor_id, comparsion_visitor.visitor)
 
@@ -107,7 +109,7 @@ def similiarity(group_id, visitor_id, comparsion_visitor_id)
   return 0.0 if visitor_vector_abs.nil? || comparsion_vector_abs.nil?
 
   mat = 0.0
-  Visitlog.select([:url_id, :normalize_count]).where(:group_id => group_id, :visitor => visitor_id).find_each do |page|
+  Visitlog.select([:url_id, :normalize_count]).where(:group_id => group_id, :visitor => visitor_id).each do |page|
     comparsion_page = Visitlog.find(:first, :conditions => {:group_id => group_id, :visitor => comparsion_visitor_id, :url_id => page.url_id})
     next if comparsion_page.nil?
 
